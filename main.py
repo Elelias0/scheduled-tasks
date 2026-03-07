@@ -4,9 +4,10 @@ import pandas
 import smtplib
 import random
 import datetime as dt
+import os
 
-my_email = "jacob.testing.0139@gmail.com"
-password = "vmnw wpvk zuer zwnl"
+MY_EMAIL = os.environ.get("MY_EMAIL")
+MY_PASSWORD = os.environ.get("MY_PASSWORD")
 
 today = dt.datetime.today()
 birthdays_list = pandas.read_csv("birthdays.csv")
@@ -21,7 +22,7 @@ birthdays_today = birthdays_list[
 if not birthdays_today.empty:
     connection = smtplib.SMTP("smtp.gmail.com")
     connection.starttls()
-    connection.login(user=my_email, password=password)
+    connection.login(user=MY_EMAIL, password=MY_PASSWORD)
 
     with open("letter_templates/subjects.txt", encoding="utf-8") as file:
         l_subjects = file.readlines()
