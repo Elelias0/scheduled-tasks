@@ -1,38 +1,46 @@
-# To run and test the code you need to update 4 places:
-# 1. Change MY_EMAIL/MY_PASSWORD to your own details.
-# 2. Go to your email provider and make it allow less secure apps.
-# 3. Update the SMTP ADDRESS to match your email provider.
-# 4. Update birthdays.csv to contain today's month and day.
-# See the solution video in the 100 Days of Python Course for explainations.
-
-
-from datetime import datetime
+##################### Extra Hard Starting Project ######################
+from email.message import EmailMessage
 import pandas
-import random
 import smtplib
-import os
+import random
+import datetime as dt
 
-# import os and use it to get the Github repository secrets
-MY_EMAIL = os.environ.get("MY_EMAIL")
-MY_PASSWORD = os.environ.get("MY_PASSWORD")
+my_email = "jacob.testing.0139@gmail.com"
+password = "vmnw wpvk zuer zwnl"
 
-today = datetime.now()
-today_tuple = (today.month, today.day)
+today = dt.datetime.today()
+birthdays_list = pandas.read_csv("birthdays.csv")
 
-data = pandas.read_csv("birthdays.csv")
-birthdays_dict = {(data_row["month"], data_row["day"])                  : data_row for (index, data_row) in data.iterrows()}
-if today_tuple in birthdays_dict:
-    birthday_person = birthdays_dict[today_tuple]
-    file_path = f"letter_templates/letter_{random.randint(1, 3)}.txt"
-    with open(file_path) as letter_file:
-        contents = letter_file.read()
-        contents = contents.replace("[NAME]", birthday_person["name"])
+# para buscar con mas condiciones dentro de un dataframe
+birthdays_today = birthdays_list[
+    (birthdays_list["month"] == today.month) &
+    (birthdays_list["day"] == today.day)
+]
 
-    with smtplib.SMTP("YOUR EMAIL PROVIDER SMTP SERVER ADDRESS") as connection:
-        connection.starttls()
-        connection.login(MY_EMAIL, MY_PASSWORD)
-        connection.sendmail(
-            from_addr=MY_EMAIL,
-            to_addrs=birthday_person["email"],
-            msg=f"Subject:Happy Birthday!\n\n{contents}"
-        )
+# 4. Send the letter generated in step 3 to that person's email address.
+if not birthdays_today.empty:
+    connection = smtplib.SMTP("smtp.gmail.com")
+    connection.starttls()
+    connection.login(user=my_email, password=password)
+
+    with open("letter_templates/subjects.txt", encoding="utf-8") as file:
+        l_subjects = file.readlines()
+
+    for index, row in birthdays_today.iterrows():
+        letter_num = random.randint(1,8)
+        with open(f"letter_templates/letter_{letter_num}.txt", encoding="utf-8") as file:
+            body_msg = file.read()
+
+        body_msg = body_msg.replace("[name]", row["name"])
+
+        message = EmailMessage()
+        message["Subject"] = random.choice(l_subjects).strip()
+        message["From"] = my_email
+        message["To"] = row["email"]
+        message.set_content(body_msg)
+        connection.send_message(message)
+
+    connection.close()
+
+
+
