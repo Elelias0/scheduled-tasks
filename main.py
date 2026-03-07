@@ -20,7 +20,7 @@ birthdays_today = birthdays_list[
 
 # 4. Send the letter generated in step 3 to that person's email address.
 if not birthdays_today.empty:
-    connection = smtplib.SMTP("smtp.gmail.com")
+    connection = smtplib.SMTP("smtp.gmail.com", 587)
     connection.starttls()
     connection.login(user=MY_EMAIL, password=MY_PASSWORD)
 
