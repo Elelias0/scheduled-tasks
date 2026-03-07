@@ -35,7 +35,7 @@ if not birthdays_today.empty:
         body_msg = body_msg.replace("[name]", row["name"])
 
         message = EmailMessage()
-        message["Subject"] = random.choice(l_subjects).strip()
+        message["Subject"] = random.choice(l_subjects).strip().replace("[name]", row["name"])
         message["From"] = MY_EMAIL
         message["To"] = row["email"]
         message.set_content(body_msg)
