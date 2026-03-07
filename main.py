@@ -36,7 +36,7 @@ if not birthdays_today.empty:
 
         message = EmailMessage()
         message["Subject"] = random.choice(l_subjects).strip()
-        message["From"] = my_email
+        message["From"] = MY_EMAIL
         message["To"] = row["email"]
         message.set_content(body_msg)
         connection.send_message(message)
