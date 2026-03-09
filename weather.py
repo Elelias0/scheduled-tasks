@@ -15,6 +15,8 @@ parameters = {"lat": LAT, "lon": LON, "appid": API_KEY, "cnt": 6}
 response = requests.get(OWM_Endpoint, params=parameters)
 response.raise_for_status()
 
+recipients = WHATSAPP_NUM.split()
+
 weather_data = response.json()
 
 is_raining = False
@@ -26,9 +28,9 @@ for condition_code in condition_codes:
 if is_raining:
 
     client = Client(ACCOUNT_SID, AUTH_TOKEN)
-
-    message = client.messages.create(
-        from_='whatsapp:+14155238886',
-        body="Va a llover hoy, cargate un paraguas o te vas a mojar!!⛈️🌦️☂️☔",
-        to=WHATSAPP_NUM
-    )
+    for numero in recipients:
+        message = client.messages.create(
+            from_='whatsapp:+14155238886',
+            body="Va a llover hoy, cargate un paraguas o te vas a mojar!!⛈️🌦️☂️☔",
+            to=numero
+        )
