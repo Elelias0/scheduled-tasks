@@ -1,12 +1,17 @@
 import requests
 from twilio.rest import Client
+import os
+API_KEY = os.environ.get("API_KEY")
+ACCOUNT_SID = os.environ.get("ACCOUNT_SID")
+AUTH_TOKEN = os.environ.get("AUTH_TOKEN")
+WHATSAPP_NUM = os.environ.get("WHATSAPP_NUM")
 
 OWM_Endpoint = "https://api.openweathermap.org/data/2.5/forecast"
 
 LAT = 35.657485
 LON = 139.694030
 
-parameters = {"lat": LAT, "lon": LON, "appid": api_key, "cnt": 6}
+parameters = {"lat": LAT, "lon": LON, "appid": API_KEY, "cnt": 6}
 response = requests.get(OWM_Endpoint, params=parameters)
 response.raise_for_status()
 
@@ -20,10 +25,10 @@ for condition_code in condition_codes:
         
 if is_raining:
 
-    client = Client(account_sid, auth_token)
+    client = Client(ACCOUNT_SID, AUTH_TOKEN)
 
     message = client.messages.create(
         from_='whatsapp:+14155238886',
         body="Va a llover hoy, cargate un paraguas o te vas a mojar!!⛈️🌦️☂️☔",
-        to=WHATS_APP_NUM
+        to=WHATSAPP_NUM
     )
