@@ -1,6 +1,8 @@
 import requests
 from twilio.rest import Client
 
+OWM_Endpoint = "https://api.openweathermap.org/data/2.5/forecast"
+
 LAT = 35.657485
 LON = 139.694030
 
