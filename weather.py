@@ -25,5 +25,5 @@ if is_raining:
     message = client.messages.create(
         from_='whatsapp:+14155238886',
         body="Va a llover hoy, cargate un paraguas o te vas a mojar!!⛈️🌦️☂️☔",
-        to='whatsapp:+818015836507'
+        to=WHATS_APP_NUM
     )
