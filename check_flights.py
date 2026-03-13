@@ -10,7 +10,6 @@ END_POINT = os.environ.get("END_POINT")
 LIMIT = float(130000)
 there_is_file = True
 there_is_flights = True
-error_message = "El archivo de vuelos.txt no se encontro, revisa nuevamente para la proxima ejecucion"
 list_my_numbers = MY_WHATSAPP.split(",")
 
 vuelos = []
