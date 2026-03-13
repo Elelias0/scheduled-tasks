@@ -39,6 +39,7 @@ except FileNotFoundError:
 else:
     for line in data:
         vuelos.append(line.split())
+print(vuelos)
 
 #08-01 08-16 -> 180,000
 
@@ -61,6 +62,7 @@ if there_is_file:
             "include_airlines": "AM,NH"
         }
         search = GoogleSearch(params)
+        print(search.get_dict())
         results = search.get_dict()
         price = 0
         from_airport = ""
