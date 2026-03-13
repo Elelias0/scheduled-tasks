@@ -3,8 +3,6 @@ from serpapi import GoogleSearch
 import requests
 
 SERPAPI_KEY = os.environ.get("SERPAPI_KEY")
-ACCOUNT_SID = os.environ.get("ACCOUNT_SID")
-AUTH_TOKEN = os.environ.get("AUTH_TOKEN")
 MY_WHATSAPP = os.environ.get("MY_WHATSAPP")
 WHATSAPP_TOKEN = os.environ.get("WHATSAPP_TOKEN")
 END_POINT = os.environ.get("END_POINT")
