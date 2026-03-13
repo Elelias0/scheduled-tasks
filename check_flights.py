@@ -2,7 +2,7 @@ import os
 from serpapi import GoogleSearch
 from twilio.rest import Client
 
-API_KEY = os.environ.get("API_KEY")
+SERPAPI_KEY = os.environ.get("SERPAPI_KEY")
 ACCOUNT_SID = os.environ.get("ACCOUNT_SID")
 AUTH_TOKEN = os.environ.get("AUTH_TOKEN")
 MY_WHATSAPP = os.environ.get("MY_WHATSAPP")
@@ -54,7 +54,7 @@ if there_is_file:
             "currency": "MXN",
             "outbound_date": dia_de_despegue,
             "return_date": dia_de_vuelta,
-            "api_key": API_KEY,
+            "api_key": SERPAPI_KEY,
             "adults": "3",
             "children": "2",
             "sort_by": "2",
