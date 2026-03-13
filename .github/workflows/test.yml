@@ -24,7 +24,7 @@ jobs:
       - name: Check secrets are configured
         env:
           END_POINT: ${{ secrets.END_POINT }}
-          SERAPI_KEY: ${{ secrets.SERAPI_KEY }}
+          SERPAPI_KEY: ${{ secrets.SERPAPI_KEY }}
           MY_WHATSAPP: ${{ secrets.MY_WHATSAPP }}
           WHATSAPP_TOKEN: ${{ secrets.WHATSAPP_TOKEN }}
         run: |
