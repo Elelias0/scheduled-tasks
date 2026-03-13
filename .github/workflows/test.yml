@@ -36,12 +36,12 @@ jobs:
             echo "END_POINT is configured"
           fi
 
-          if [ -z "$SERAPI_KEY" ]; then
-            echo "SERAPI_KEY secret is not set!"
+          if [ -z "$SERPAPI_KEY" ]; then
+            echo "SERPAPI_KEY secret is not set!"
             echo "Go to Settings > Secrets > Actions and add it."
             exit 1
           else
-            echo "SERAPI_KEY is configured"
+            echo "SERPAPI_KEY is configured"
           fi
 
           if [ -z "$MY_WHATSAPP" ]; then
