@@ -14,7 +14,7 @@ on:
     # ║                                                                ║
     # ║  Use https://time.is/UTC to find your local time in UTC       ║
     # ╚═══════════════════════════════════════════════════════════════╝
-    - cron: '0 0/3 * * *'
+    - cron: '0 0/8 * * *'
 
   # This adds a "Run workflow" button so you can test manually
   workflow_dispatch:
@@ -41,7 +41,7 @@ jobs:
         env:
           # Your secrets are available as environment variables
           # Add more secrets in Settings > Secrets > Actions
-          API_KEY: ${{ secrets.API_KEY }}
+          SERPAPI_KEY: ${{ secrets.SERPAPI_KEY }}
           ACCOUNT_SID: ${{ secrets.ACCOUNT_SID }}
           AUTH_TOKEN: ${{ secrets.AUTH_TOKEN }}
           MY_WHATSAPP: ${{ secrets.MY_WHATSAPP }}
