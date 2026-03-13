@@ -19,29 +19,46 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          pip install -r requirements_flights.txt
 
       - name: Check secrets are configured
         env:
-          MY_EMAIL: ${{ secrets.MY_EMAIL }}
-          MY_PASSWORD: ${{ secrets.MY_PASSWORD }}
+          END_POINT: ${{ secrets.END_POINT }}
+          SERAPI_KEY: ${{ secrets.SERAPI_KEY }}
+          MY_WHATSAPP: ${{ secrets.MY_WHATSAPP }}
+          WHATSAPP_TOKEN: ${{ secrets.WHATSAPP_TOKEN }}
         run: |
-          if [ -z "$MY_EMAIL" ]; then
-            echo "MY_EMAIL secret is not set!"
+          if [ -z "$END_POINT" ]; then
+            echo "END_POINT secret is not set!"
             echo "Go to Settings > Secrets > Actions and add it."
             exit 1
           else
-            echo "MY_EMAIL is configured"
+            echo "END_POINT is configured"
           fi
 
-          if [ -z "$MY_PASSWORD" ]; then
-            echo "MY_PASSWORD secret is not set!"
+          if [ -z "$SERAPI_KEY" ]; then
+            echo "SERAPI_KEY secret is not set!"
             echo "Go to Settings > Secrets > Actions and add it."
             exit 1
           else
-            echo "MY_PASSWORD is configured"
+            echo "SERAPI_KEY is configured"
           fi
 
+          if [ -z "$MY_WHATSAPP" ]; then
+            echo "MY_WHATSAPP secret is not set!"
+            echo "Go to Settings > Secrets > Actions and add it."
+            exit 1
+          else
+            echo "MY_WHATSAPP is configured"
+          fi
+          
+          if [ -z "$WHATSAPP_TOKEN" ]; then
+            echo "WHATSAPP_TOKEN secret is not set!"
+            echo "Go to Settings > Secrets > Actions and add it."
+            exit 1
+          else
+            echo "WHATSAPP_TOKEN is configured"
+          fi
           echo ""
           echo "All secrets are configured!"
 
@@ -49,24 +66,24 @@ jobs:
         run: |
           echo "Checking for required files..."
 
-          if [ -f "main.py" ]; then
-            echo "main.py found"
+          if [ -f "check_flights.py" ]; then
+            echo "check_flights.py found"
           else
-            echo "main.py not found!"
+            echo "check_flights.py not found!"
             exit 1
           fi
 
-          if [ -f "requirements.txt" ]; then
-            echo "requirements.txt found"
+          if [ -f "requirements_flights.txt" ]; then
+            echo "requirements_flights.txt found"
           else
-            echo "requirements.txt not found!"
+            echo "requirements_flights.txt not found!"
             exit 1
           fi
 
-          if [ -f "birthdays.csv" ]; then
-            echo "birthdays.csv found"
+          if [ -f "vuelos.txt" ]; then
+            echo "vuelos.txt found"
           else
-            echo "birthdays.csv not found!"
+            echo "vuelos.txt not found!"
             exit 1
           fi
 
@@ -74,7 +91,7 @@ jobs:
           echo "All required files found!"
 
       - name: Test Python syntax
-        run: python -m py_compile main.py && echo "Python syntax OK"
+        run: python -m py_compile check_flights.py && echo "Python syntax OK"
 
       - name: Success
         run: |
