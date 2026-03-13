@@ -54,6 +54,7 @@ if there_is_file:
             from_airport = data_cheaper_flight["flights"][0]["departure_airport"]["name"]
         finally:
             url_to_buy = results["search_metadata"]["google_flights_url"]
+            url_to_buy = url_to_buy.replace("https://google.com/", "")
 
         if there_is_flights:
             if price < LIMIT:
@@ -67,7 +68,7 @@ if there_is_file:
                         "to": f"{number}",
                         "type": "template",
                         "template": {
-                            "name": "flights",
+                            "name": "flights", #flights_2
                             "language": {
                                 "code": "en"
                             },
@@ -75,13 +76,13 @@ if there_is_file:
                                 "type": "body",
                                 "parameters": [{
                                     "type": "text",
-                                    "parameter_name": "from_airport", # Asegúrate que coincida con Meta
-                                    "text": f"{from_airport}"
+                                    "parameter_name": "airport", # airport
+                                    "text": f"{from_airport}" 
                                 },
                                 {
                                     "type": "text",
-                                    "parameter_name": "price",
-                                    "text": f"{price:.2f}"
+                                    "parameter_name": "test", #test
+                                    "text": f"{price:.2f}" 
                                 },
                                 {
                                     "type": "text",
