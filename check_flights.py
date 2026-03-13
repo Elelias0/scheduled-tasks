@@ -1,46 +1,29 @@
 import os
 from serpapi import GoogleSearch
-from twilio.rest import Client
+import requests
 
 SERPAPI_KEY = os.environ.get("SERPAPI_KEY")
 ACCOUNT_SID = os.environ.get("ACCOUNT_SID")
 AUTH_TOKEN = os.environ.get("AUTH_TOKEN")
 MY_WHATSAPP = os.environ.get("MY_WHATSAPP")
+WHATSAPP_TOKEN = os.environ.get("WHATSAPP_TOKEN")
+END_POINT = os.environ.get("END_POINT")
+
 LIMIT = float(130000)
 there_is_file = True
 there_is_flights = True
 error_message = "El archivo de vuelos.txt no se encontro, revisa nuevamente para la proxima ejecucion"
 list_my_numbers = MY_WHATSAPP.split(",")
 
-def send_message(mensaje, type_msg):
-    if type_msg == 1:
-        client = Client(ACCOUNT_SID, AUTH_TOKEN)
-        message = client.messages.create(
-            from_='whatsapp:+14155238886',
-            body=mensaje,
-            to=list_my_numbers[0]
-        )
-    else:
-        for number in list_my_numbers:
-            client = Client(ACCOUNT_SID, AUTH_TOKEN)
-            message = client.messages.create(
-                from_='whatsapp:+14155238886',
-                body=mensaje,
-                to=number
-            )
-
 vuelos = []
 try:
     with open("vuelos.txt") as file:
         data = file.readlines()
 except FileNotFoundError:
-    send_message(error_message, 1)
     there_is_file = False
 else:
     for line in data:
         vuelos.append(line.split())
-
-#08-01 08-16 -> 180,000
 
 if there_is_file:
     for vuelo in vuelos:
@@ -76,18 +59,52 @@ if there_is_file:
 
         if there_is_flights:
             if price < LIMIT:
-                trip_found_message = f"""
-🔔🚨🔔🚨🔔🚨
-¡HAY VUELOS BARATOS!
-¡¡¡Te dejo la información!!!
-El vuelo 🛩️ sale de {from_airport} 
-para 3 adultos y 2 niños el precio es de ${price:.2f} MXN 💸💸 🤩
-Día de despegue: {dia_de_despegue} 🛫🛫
-Día de vuelta: {dia_de_vuelta} 🛬🛬
-🚨🔔🚨🔔🚨🔔
-⬇️¡¡¡Entra aquí y apresúrate!!!👇\n
-{url_to_buy}
-"""
-                send_message(trip_found_message, 0)
-            else:
-                print("False")
+                headers = {
+                    "Authorization": f"Bearer {WHATSAPP_TOKEN}",
+                    "Content-Type": "application/json"
+                }
+                for number in list_my_numbers:
+                    call_api = {
+                        "messaging_product": "whatsapp",
+                        "to": f"{number}",
+                        "type": "template",
+                        "template": {
+                            "name": "flights",
+                            "language": {
+                                "code": "en"
+                            },
+                            "components": [{
+                                "type": "body",
+                                "parameters": [{
+                                    "type": "text",
+                                    "parameter_name": "from_airport", # Asegúrate que coincida con Meta
+                                    "text": f"{from_airport}"
+                                },
+                                {
+                                    "type": "text",
+                                    "parameter_name": "price",
+                                    "text": f"{price:.2f}"
+                                },
+                                {
+                                    "type": "text",
+                                    "parameter_name": "dia_de_despegue",
+                                    "text": f"{dia_de_despegue}"
+                                },
+                                {
+                                    "type": "text",
+                                    "parameter_name": "dia_de_vuelta",
+                                    "text": f"{dia_de_vuelta}"
+                                }]
+                            },
+                            {
+                                "type": "button",  # Cambiado de 'buttons' a 'button'
+                                "sub_type": "url",  # Obligatorio para botones de enlace
+                                "index": "0",  # El primer botón de tu plantilla
+                                "parameters": [{
+                                        "type": "text",
+                                        "text": f"{url_to_buy}"  # Solo la parte dinámica que completa la URL
+                                }]
+                            }]
+                        }
+                    }
+                    response = requests.post(url=END_POINT, json=call_api, headers=headers)
