@@ -68,7 +68,7 @@ if there_is_file:
                         "to": f"{number}",
                         "type": "template",
                         "template": {
-                            "name": "flights", #flights_2
+                            "name": "flights_2", #flights_2
                             "language": {
                                 "code": "en"
                             },
