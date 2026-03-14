@@ -2,9 +2,9 @@ import requests
 from twilio.rest import Client
 import os
 API_KEY = os.environ.get("API_KEY")
-ACCOUNT_SID = os.environ.get("ACCOUNT_SID")
-AUTH_TOKEN = os.environ.get("AUTH_TOKEN")
-WHATSAPP_NUM = os.environ.get("WHATSAPP_NUM")
+MY_WHATSAPP = os.environ.get("MY_WHATSAPP")
+WHATSAPP_TOKEN = os.environ.get("WHATSAPP_TOKEN")
+END_POINT = os.environ.get("END_POINT")
 
 OWM_Endpoint = "https://api.openweathermap.org/data/2.5/forecast"
 
