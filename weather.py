@@ -1,6 +1,6 @@
 import requests
-from twilio.rest import Client
 import os
+
 API_KEY = os.environ.get("API_KEY")
 MY_WHATSAPP = os.environ.get("MY_WHATSAPP")
 WHATSAPP_TOKEN = os.environ.get("WHATSAPP_TOKEN")
@@ -15,7 +15,7 @@ parameters = {"lat": LAT, "lon": LON, "appid": API_KEY, "cnt": 6}
 response = requests.get(OWM_Endpoint, params=parameters)
 response.raise_for_status()
 
-recipients = WHATSAPP_NUM.split()
+recipients = MY_WHATSAPP.split(",")
 
 weather_data = response.json()
 
@@ -26,11 +26,21 @@ for condition_code in condition_codes:
         is_raining = True
         
 if is_raining:
-
-    client = Client(ACCOUNT_SID, AUTH_TOKEN)
-    for numero in recipients:
-        message = client.messages.create(
-            from_='whatsapp:+14155238886',
-            body="Va a llover hoy, cargate un paraguas o te vas a mojar!!⛈️🌦️☂️☔",
-            to=numero
-        )
+    headers = {
+        "Authorization": f"Bearer {WHATSAPP_TOKEN}",
+        "Content-Type": "application/json"
+    }
+    for number in recipients:
+        call_api = {
+            "messaging_product": "whatsapp",
+            "to": f"{number}",
+            "type": "template",
+            "template": {
+                "name": "lluvia",
+                "language": {
+                    "code": "es_MX"
+                },
+            }
+        }
+        response = requests.post(url=END_POINT, json=call_api, headers=headers)
+        respo
