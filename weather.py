@@ -1,4 +1,5 @@
 import requests
+import os
 
 API_KEY = os.environ.get("API_KEY")
 MY_WHATSAPP = os.environ.get("MY_WHATSAPP")
