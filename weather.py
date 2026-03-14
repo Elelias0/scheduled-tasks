@@ -11,7 +11,7 @@ OWM_Endpoint = "https://api.openweathermap.org/data/2.5/forecast"
 LAT = 35.657485
 LON = 139.694030
 
-parameters = {"lat": LAT, "lon": LON, "appid": API_KEY, "cnt": 6}
+parameters = {"lat": LAT, "lon": LON, "appid": API_KEY, "cnt": 2}
 response = requests.get(OWM_Endpoint, params=parameters)
 response.raise_for_status()
 
