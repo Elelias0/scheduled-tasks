@@ -46,7 +46,7 @@ if there_is_file:
         from_airport = ""
         try:
             data_cheaper_flight = results["other_flights"][0]
-        except IndexError:
+        except:
             there_is_flights = False
         else:
             price = float(data_cheaper_flight["price"])
