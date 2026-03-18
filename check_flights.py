@@ -57,6 +57,7 @@ if there_is_file:
 
         if there_is_flights:
             if price < LIMIT:
+                print("Si hay a notificar")
                 headers = {
                     "Authorization": f"Bearer {WHATSAPP_TOKEN}",
                     "Content-Type": "application/json"
