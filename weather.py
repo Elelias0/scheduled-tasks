@@ -15,7 +15,7 @@ parameters = {"lat": LAT, "lon": LON, "appid": API_KEY, "cnt": 2}
 response = requests.get(OWM_Endpoint, params=parameters)
 response.raise_for_status()
 
-recipients = MY_WHATSAPP.split(",")
+recipients = MY_WHATSAPP_WE.split(",")
 
 weather_data = response.json()
 
