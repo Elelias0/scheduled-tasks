@@ -2,7 +2,7 @@ import requests
 import os
 
 API_KEY = os.environ.get("API_KEY")
-MY_WHATSAPP = os.environ.get("MY_WHATSAPP")
+MY_WHATSAPP_WE = os.environ.get("MY_WHATSAPP_WE")
 WHATSAPP_TOKEN = os.environ.get("WHATSAPP_TOKEN")
 END_POINT = os.environ.get("END_POINT")
 
