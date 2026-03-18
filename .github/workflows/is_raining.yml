@@ -44,5 +44,5 @@ jobs:
           API_KEY: ${{ secrets.API_KEY }}
           END_POINT: ${{ secrets.END_POINT }}
           WHATSAPP_TOKEN: ${{ secrets.WHATSAPP_TOKEN }}
-          MY_WHATSAPP: ${{ secrets.MY_WHATSAPP }}
+          MY_WHATSAPP_WE: ${{ secrets.MY_WHATSAPP_WE }}
         run: python weather.py
