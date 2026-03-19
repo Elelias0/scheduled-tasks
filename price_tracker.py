@@ -27,9 +27,12 @@ print(price_list)
 with open("test.txt","w") as file:
     file.write(f"{soup.prettify()}\n{str(price_list)}\n")
 
-price_string = "".join(price_list[0].string.split(","))
-price_int = int(price_string)
-product_name = product_list[0].string
+try:
+    price_string = "".join(price_list[0].string.split(","))
+    price_int = int(price_string)
+    product_name = product_list[0].string
+except:
+    price_int = 500000
 
 if price_int <= SET_PRICE:
     connection = smtplib.SMTP('smtp.gmail.com', 587)
