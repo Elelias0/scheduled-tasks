@@ -16,11 +16,14 @@ headers = {
 }
 
 response = requests.get(url=url_product, headers=headers)
-print(response.content)
+response.raise_for_status()
+
 soup = BeautifulSoup(response.content, 'html.parser')
 
 price_list = soup.select(selector="span.a-price-whole")
 product_list = soup.select(selector="span#productTitle")
+
+print(price_list)
 
 price_string = "".join(price_list[0].string.split(","))
 price_int = int(price_string)
