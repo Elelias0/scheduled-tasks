@@ -24,19 +24,22 @@ response.raise_for_status()
 
 soup = BeautifulSoup(response.content, 'html.parser')
 
-price_list = soup.select(selector="span.a-price-whole")
-product_list = soup.select(selector="span#productTitle")
-
-print(price_list)
-with open("test.txt","w") as file:
-    file.write(f"{soup.prettify()}\n{str(price_list)}\n")
-price_int = 500000
 try:
-    price_string = "".join(price_list[0].string.split(","))
-    price_int = int(price_string)
-    product_name = product_list[0].string
-except:
+    price_list = soup.find("span", class_="a-price-whole")
+    name_element = soup.find("span", id="productTitle")
+    product_name = name_element.get_text().strip() if name_element else "Producto no encontrado"
+
+    if price_list:
+        price_string = "".join(filter(str.isdigit, price_element.get_text()))
+        price_int = int(price_string)
+    else:
+        print("No se encontró el elemento del precio en el HTML")
+        price_int = 500000
+        
+except Exception as e:
+    print(f"Error procesando los datos: {e}")
     price_int = 500000
+    product_name = "Error en extracción"
 
 if price_int <= SET_PRICE:
     connection = smtplib.SMTP('smtp.gmail.com', 587)
