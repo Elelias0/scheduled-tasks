@@ -16,7 +16,7 @@ headers = {
 }
 
 response = requests.get(url=url_product, headers=headers)
-
+print(response.content)
 soup = BeautifulSoup(response.content, 'html.parser')
 
 price_list = soup.select(selector="span.a-price-whole")
