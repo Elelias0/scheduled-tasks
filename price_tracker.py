@@ -25,7 +25,8 @@ product_list = soup.select(selector="span#productTitle")
 
 print(price_list)
 with open("text.txt","w") as file:
-    file.write(f"{soup.prettify()}\n{price_list}\n")
+    file.write(str(price_list))
+    file.write(f"{soup.prettify()}\n{str(price_list)}\n")
 
 price_string = "".join(price_list[0].string.split(","))
 price_int = int(price_string)
