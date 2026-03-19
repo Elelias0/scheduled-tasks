@@ -26,11 +26,12 @@ product_list = soup.select(selector="span#productTitle")
 print(price_list)
 with open("test.txt","w") as file:
     file.write(f"{soup.prettify()}\n{str(price_list)}\n")
-
+price_int = 500000
 try:
-    price_string = "".join(price_list[0].string.split(","))
-    price_int = int(price_string)
-    product_name = product_list[0].string
+    #price_string = "".join(price_list[0].string.split(","))
+    #price_int = int(price_string)
+    #product_name = product_list[0].string
+    pass
 except:
     price_int = 500000
 
