@@ -45,3 +45,9 @@ jobs:
           PASSWORD: ${{ secrets.MY_PASSWORD }}
           TO_EMAIL_ADDRESS: ${{ secrets.TO_EMAIL_ADDRESS }}
         run: python price_tracker.py
+      - name: Guardar el archivo generado (Artifact)
+        uses: actions/upload-artifact@v4
+        with:
+          name: reporte-precios-spotify  # El nombre que verás en la web de GitHub
+          path: test.txt                 # El nombre exacto del archivo que crea tu script
+          retention-days: 2              # Opcional: Cuántos días quieres que GitHub lo guarde
