@@ -44,3 +44,4 @@ if is_raining:
         }
         response = requests.post(url=END_POINT, json=call_api, headers=headers)
         response.raise_for_status()
+
